@@ -88,13 +88,13 @@ start_client(){
 
   case $OS in
     "Linux" )
-      $CLIENT_BASE_PATH/chisel_linux_amd64 client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+      $CLIENT_BASE_PATH/chisel_linux_amd64 client -v --keepalive ${KEEP_ALIVE:-'3s'} $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
       ;;
     "Mac" )
-      $CLIENT_BASE_PATH/chisel_darwin_amd64 client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+      $CLIENT_BASE_PATH/chisel_darwin_amd64 client -v --keepalive ${KEEP_ALIVE:-'3s'} $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
       ;;
     "Cygwin" )
-      $CLIENT_BASE_PATH/chisel_windows_386.exe client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+      $CLIENT_BASE_PATH/chisel_windows_386.exe client -v --keepalive ${KEEP_ALIVE:-'3s'} $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
       ;;
   esac
 
