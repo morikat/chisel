@@ -16,6 +16,7 @@ if [ "$1" == "" ]; then
 fi
 
 APP_NAME=$1
+check_command cf
 check_command jq
 
 APP_GUID=`cf app $1 --guid`
@@ -68,7 +69,30 @@ connect_service(){
 }
 
 start_client(){
-  ./chisel-bin/chisel_linux_amd64 client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+  CLIENT_BASE_PATH="./chisel-bin"
+  if [ "$(uname)" == 'Darwin' ]; then
+    OS="Mac"
+  elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+    OS="Linux"
+  elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+    OS="Cygwin"
+  else
+    echo "Your platform ($(uname -a)) is not supported."
+    exit 1
+  fi
+
+  case $OS in
+    "Linux" )
+      $CLIENT_BASE_PATH/chisel_linux_amd64 client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+      ;;
+    "Mac" )
+      $CLIENT_BASE_PATH/chisel_darwin_amd64 client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+      ;;
+    "Cygwin" )
+      $CLIENT_BASE_PATH/chisel_windows_386.exe client -v $APP_DOMAIN $LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT &
+      ;;
+  esac
+
   CHISEL_PID=`echo $!`
   sleep 3
 }
