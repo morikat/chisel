@@ -61,6 +61,11 @@ connect_service(){
       psql -h 127.0.0.1 -p $LOCAL_PORT -d $SERVICE_NAME -U $SERVICE_USER
       kill_process
       ;;
+    mysql* )
+      check_command mysql
+      mysql -h 127.0.0.1 -P $LOCAL_PORT -u $SERVICE_USER -p$SERVICE_PASS $SERVICE_NAME
+      kill_process
+      ;;
     * )
       echo_credentials
       ;;
