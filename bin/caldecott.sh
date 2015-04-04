@@ -12,7 +12,7 @@ DB_USER=`echo $CREDENTIALS | jq -r .username`
 DB_PASS=`echo $CREDENTIALS | jq -r .password`
 DB_NAME=`echo $CREDENTIALS | jq -r .name`
 
-./bin/chisel client -v $APP_DOMAIN 15524:$REMOTE_HOST:$REMOTE_PORT &
+./chisel-bin/chisel_linux_amd64 client -v $APP_DOMAIN 15524:$REMOTE_HOST:$REMOTE_PORT &
 CHISEL_PID=`echo $!`
 sleep 3
 export PGPASSWORD=$DB_PASS
