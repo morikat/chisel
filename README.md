@@ -159,6 +159,30 @@ and then visit [localhost:3000](http://localhost:3000/), we should see a directo
 
 See also [programmatic usage](https://github.com/jpillora/chisel/wiki/Programmatic-Usage).
 
+### How to connect Cloud Foundry v2 Service
+
+```
+$ cf create-service postgresql default chisel-pg
+$ cf push chisel-bind-pg --no-start
+$ cf bind-service chisel-bind-pg chisel-pg
+$ ./bin/caldecott.sh chisel-bind-pg
+2015/04/04 10:59:08 client: Connecting to ws://chisel-bind-pg.paas.jp-e1.cloudn-service.com:80
+2015/04/04 10:59:08 client: 153.149.13.35:5434#1: Enabled
+2015/04/04 10:59:08 client: Fingerprint b1:f5:89:19:71:6f:b0:23:f0:a3:d0:ca:14:e1:19:f9
+2015/04/04 10:59:08 client: Sending configurating
+2015/04/04 10:59:08 client: Connected (Latency 11.493224ms)
+2015/04/04 10:59:11 client: 153.149.13.35:5434#1: conn#1: Open
+psql (9.1.15, server 9.2.4)
+WARNING: psql version 9.1, server version 9.2.
+         Some psql features might not work.
+Type "help" for help.
+
+d3ba5929bbe2e40c2851d42b999d0fa5e=> \d
+No relations found.
+d3ba5929bbe2e40c2851d42b999d0fa5e=> \q
+2015/04/04 10:59:17 client: 153.149.13.35:5434#1: conn#1: Close (sent 781 received 0)
+```
+
 ### Security
 
 Encryption is always enabled. When you start up a chisel server, it will generate an in-memory ECDSA public/private key pair. The public key fingerprint will be displayed as the server starts. Instead of generating a random key, the server may optionally specify a key seed, using the `--key` option, which will be used to seed the key generation. When clients connect, they will also display the server's public key fingerprint. The client can force a particular fingerprint using the `--fingerprint` option. See the `--help` above for more information.
