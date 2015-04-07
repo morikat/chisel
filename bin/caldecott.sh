@@ -19,7 +19,7 @@ APP_NAME=$1
 check_command cf
 check_command jq
 
-APP_GUID=`cf app $1 --guid`
+APP_GUID=`cf curl /v2/apps?q=name%3A$1 | jq -r '.resources|.[].metadata.guid'`
 APP_DOMAIN=`cf curl /v2/apps/$APP_GUID/stats | jq -r '.["0"].stats.uris[0]'`
 APP_ENV=`cf curl /v2/apps/$APP_GUID/env`
 SERVICE_LABEL=${SERVICE_LABEL:-`echo $APP_ENV | jq -r '.system_env_json.VCAP_SERVICES | .[][0].label'`}
