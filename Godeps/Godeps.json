@@ -3,23 +3,8 @@
 	"GoVersion": "go1.4",
 	"Deps": [
 		{
-			"ImportPath": "github.com/jpillora/backoff",
+			"ImportPath": "github.com/morikat/backoff",
 			"Rev": "2ff7c4694083b5dbd71b21fd7cb7577477a74b31"
-		},
-		{
-			"ImportPath": "github.com/jpillora/chisel/client",
-			"Comment": "1.1.3",
-			"Rev": "74a9a324c4a55b919f931e0ade4ed7a5cc355b7c"
-		},
-		{
-			"ImportPath": "github.com/jpillora/chisel/server",
-			"Comment": "1.1.3",
-			"Rev": "74a9a324c4a55b919f931e0ade4ed7a5cc355b7c"
-		},
-		{
-			"ImportPath": "github.com/jpillora/chisel/share",
-			"Comment": "1.1.3",
-			"Rev": "74a9a324c4a55b919f931e0ade4ed7a5cc355b7c"
 		},
 		{
 			"ImportPath": "golang.org/x/crypto/ssh",

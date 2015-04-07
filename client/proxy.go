@@ -4,7 +4,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/jpillora/chisel/share"
+	"github.com/morikat/chisel/share"
 )
 
 type Proxy struct {
